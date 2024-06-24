@@ -203,14 +203,14 @@ class Transfer(object):
         line = "{}\nimport({}\n{}\n)\n{}".format(
             self.before_import, self.import_other_library, hertzLibrary, self.body
         )
-        wopen = open(path, "w")
+        wopen = open(path, "w", encoding='utf-8')
         wopen.write(line)
         wopen.close()
 
     def find_route_handler(self):
         filePath = self.items_dir()
         for path in filePath:
-            fd = open(path, "r")
+            fd = open(path, "r", encoding='utf-8')
             line = fd.readline()
             while line:
                 if line.strip().startswith("//"):
@@ -279,7 +279,7 @@ class Transfer(object):
 
     def add_import_context(self, path):
         lines = ""
-        fd = open(path, "r")
+        fd = open(path, "r", encoding='utf-8')
         line = fd.readline()
         while line:
             if re.search(r"import \(", line):
@@ -297,7 +297,7 @@ class Transfer(object):
             else:
                 lines += line
                 line = fd.readline()
-        wopen = open(path, "w")
+        wopen = open(path, "w", encoding='utf-8')
         wopen.write(lines)
         wopen.close()
 
@@ -307,7 +307,7 @@ class Transfer(object):
         filePath = self.items_dir()
         for path in filePath:
             lines = ""
-            fd = open(path, "r")
+            fd = open(path, "r", encoding='utf-8')
             line = fd.readline()
             need_add_import = False
             while line:
@@ -322,7 +322,7 @@ class Transfer(object):
                 if not has_found:
                     lines = lines + line
                 line = fd.readline()
-            wopen = open(path, "w")
+            wopen = open(path, "w", encoding='utf-8')
             wopen.write(lines)
             wopen.close()
             if need_add_import:
@@ -350,7 +350,7 @@ class Transfer(object):
         self.format_code()
         filePath = self.items_dir()
         for path in filePath:
-            fd = open(path, "r")
+            fd = open(path, "r", encoding='utf-8')
             has_other_framework = self.handle_import(fd)
             if not has_other_framework:
                 fd.close()
